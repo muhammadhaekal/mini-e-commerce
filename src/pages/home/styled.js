@@ -38,6 +38,7 @@ export const ProductWrapper = styled.div`
   padding: 10px;
   margin-top: 10px;
   background-color: rgb(225, 245, 245);
+  padding-bottom: 33px;
 `;
 
 export const ProductCard = styled.div`
@@ -98,8 +99,8 @@ export const SearchBarWrapper = styled.div`
 `;
 
 export const SarchBarIcon = styled.img`
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   margin-right: 5px;
 `;
 
@@ -114,8 +115,8 @@ export const SearchInputWrapper = styled.div`
 `;
 
 export const SearchIconImg = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 `;
 
 export const SearchInput = styled.input`

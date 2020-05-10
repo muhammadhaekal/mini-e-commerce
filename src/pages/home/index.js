@@ -19,10 +19,12 @@ import {
 import LikeTrueImgSrc from "../../img/loved-true.png";
 import LikeFalseImgSrc from "../../img/loved-false.png";
 import SearchIconImgSrc from "../../img/search-icon.png";
+import LeftArrowImgSrc from "../../img/left-arrow.png";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
   const searchBarImg = useRef(null);
 
   useEffect(() => {
@@ -41,12 +43,19 @@ const Home = () => {
           setCategories(res[0].data.category);
           setProducts(res[0].data.productPromo);
         }
-        // searchBarImg.current.src = SearchIconImgSrc;
       })
       .catch((err) => {
         window.alert(err.message);
       });
   }, []);
+
+  useEffect(() => {
+    if (searchKey) {
+      searchBarImg.current.src = LeftArrowImgSrc;
+    } else {
+      searchBarImg.current.src = LikeTrueImgSrc;
+    }
+  }, [searchKey]);
 
   return (
     <React.Fragment>
@@ -54,13 +63,17 @@ const Home = () => {
         <SarchBarIcon ref={searchBarImg} src={LikeTrueImgSrc}></SarchBarIcon>
         <SearchInputWrapper>
           <SearchIconImg src={SearchIconImgSrc}></SearchIconImg>
-          <SearchInput type="text" name="search-key"></SearchInput>
+          <SearchInput
+            type="text"
+            name="search-key"
+            onChange={(e) => setSearchKey(e.target.value)}
+          ></SearchInput>
         </SearchInputWrapper>
       </SearchBarWrapper>
       <CategoriesWrapper>
         {categories &&
-          categories.map((category) => (
-            <CategoryCard>
+          categories.map((category, i) => (
+            <CategoryCard key={i}>
               <CategoryImg
                 src={category.imageUrl}
                 alt={`img-${category.name}`}
@@ -71,8 +84,8 @@ const Home = () => {
       </CategoriesWrapper>
       <ProductWrapper>
         {products &&
-          products.map((product) => (
-            <ProductCard>
+          products.map((product, i) => (
+            <ProductCard key={i}>
               <ProductImg background={product.imageUrl}>
                 <LikeIconImg
                   src={product.loved === 1 ? LikeTrueImgSrc : LikeFalseImgSrc}
@@ -83,10 +96,10 @@ const Home = () => {
           ))}
       </ProductWrapper>
       <NavBarWrapper>
-        <span>HOME</span>
-        <span>FEED</span>
-        <span>CART</span>
-        <span>PROFILE</span>
+        <span>Home</span>
+        <span>Feed</span>
+        <span>Cart</span>
+        <span>Profile</span>
       </NavBarWrapper>
     </React.Fragment>
   );
