@@ -1,14 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  CategoriesWrapper,
-  CategoryCard,
-  CategoryImg,
-  CategoryName,
-  ProductWrapper,
-  ProductCard,
-  ProductTitle,
-  ProductImg,
-  LikeIconImg,
   NavBarWrapper,
   SearchBarWrapper,
   SarchBarIcon,
@@ -17,13 +8,15 @@ import {
   SearchInput,
 } from "./styled";
 import LikeTrueImgSrc from "../../img/loved-true.png";
-import LikeFalseImgSrc from "../../img/loved-false.png";
 import SearchIconImgSrc from "../../img/search-icon.png";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
+import { connect } from "react-redux";
+import { setProductList, setFilteredProducts } from "../../redux/actions/app";
+import Categories from "../../components/categories";
+import Products from "../../components/products";
 
-const Home = () => {
+const Home = ({ setProductList, productList, setFilteredProducts }) => {
   const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const searchBarImg = useRef(null);
 
@@ -41,21 +34,38 @@ const Home = () => {
       .then((res) => {
         if (res && res[0] && res[0].data) {
           setCategories(res[0].data.category);
-          setProducts(res[0].data.productPromo);
+          setProductList(res[0].data.productPromo);
         }
       })
       .catch((err) => {
         window.alert(err.message);
       });
-  }, []);
+  }, [setProductList]);
 
   useEffect(() => {
     if (searchKey) {
+      const newFilteredProduct = productList.filter((product) =>
+        product.title.toLowerCase().includes(searchKey.toLowerCase())
+      );
+      setFilteredProducts(newFilteredProduct);
       searchBarImg.current.src = LeftArrowImgSrc;
     } else {
       searchBarImg.current.src = LikeTrueImgSrc;
     }
-  }, [searchKey]);
+  }, [searchKey, productList, setFilteredProducts]);
+
+  const renderMainContent = () => {
+    if (searchKey) {
+      return <React.Fragment>searching ...</React.Fragment>;
+    } else {
+      return (
+        <React.Fragment>
+          <Categories categories={categories}></Categories>
+          <Products products={productList}></Products>
+        </React.Fragment>
+      );
+    }
+  };
 
   return (
     <React.Fragment>
@@ -70,31 +80,7 @@ const Home = () => {
           ></SearchInput>
         </SearchInputWrapper>
       </SearchBarWrapper>
-      <CategoriesWrapper>
-        {categories &&
-          categories.map((category, i) => (
-            <CategoryCard key={i}>
-              <CategoryImg
-                src={category.imageUrl}
-                alt={`img-${category.name}`}
-              ></CategoryImg>
-              <CategoryName>{category.name}</CategoryName>
-            </CategoryCard>
-          ))}
-      </CategoriesWrapper>
-      <ProductWrapper>
-        {products &&
-          products.map((product, i) => (
-            <ProductCard key={i}>
-              <ProductImg background={product.imageUrl}>
-                <LikeIconImg
-                  src={product.loved === 1 ? LikeTrueImgSrc : LikeFalseImgSrc}
-                ></LikeIconImg>
-              </ProductImg>
-              <ProductTitle>{product.title}</ProductTitle>
-            </ProductCard>
-          ))}
-      </ProductWrapper>
+      {renderMainContent()}
       <NavBarWrapper>
         <span>Home</span>
         <span>Feed</span>
@@ -105,4 +91,14 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+  setProductList: (products) => dispatch(setProductList(products)),
+  setFilteredProducts: (filteredProducts) =>
+    dispatch(setFilteredProducts(filteredProducts)),
+});
+
+const mapStateToProps = (store) => ({
+  productList: store.app.productList,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
