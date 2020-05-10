@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import { createGlobalStyle } from "styled-components";
 import LoginPage from "./pages/login";
+import HomePage from "./pages/home";
+
 import { Route, withRouter } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
@@ -15,7 +17,8 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Route exact path="/" component={LoginPage} />
+      <Route exact path="/" component={LoginPage} />{" "}
+      <Route path="/home" component={HomePage} />
     </React.Fragment>
   );
 }
