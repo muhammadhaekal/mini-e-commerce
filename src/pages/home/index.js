@@ -80,8 +80,10 @@ const Home = ({
   const setSearchActive = () => {
     setIsSearchActive(true);
   };
-  const setSearchInactive = () => {
+  const handleBackClick = () => {
     setIsSearchActive(false);
+    setSearchKey("");
+    setFilteredProducts([]);
   };
 
   return (
@@ -90,7 +92,7 @@ const Home = ({
         <SarchBarIcon
           ref={searchBarImg}
           src={isSearchActive ? LeftArrowImgSrc : LikeTrueImgSrc}
-          onClick={setSearchInactive}
+          onClick={handleBackClick}
         ></SarchBarIcon>
         <SearchInputWrapper>
           <SearchIconImg src={SearchIconImgSrc}></SearchIconImg>
@@ -99,6 +101,7 @@ const Home = ({
             name="search-key"
             onChange={(e) => setSearchKey(e.target.value)}
             onFocus={setSearchActive}
+            value={searchKey}
           ></SearchInput>
         </SearchInputWrapper>
       </SearchBarWrapper>

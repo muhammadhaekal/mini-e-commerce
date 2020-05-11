@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import HistoryProducts from "../../components/historyProducts";
+import FilteredProducts from "../../components/filteredProducts";
 import { SearchBarWrapper, LeftArrowIcon, SearchInputWrapper } from "./styled";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
 
@@ -18,7 +18,7 @@ const History = ({ purchasedHistory, history: { goBack } }) => {
         ></LeftArrowIcon>
         <SearchInputWrapper>Purchased History</SearchInputWrapper>
       </SearchBarWrapper>
-      <HistoryProducts filteredProducts={purchasedHistory}></HistoryProducts>
+      <FilteredProducts filteredProducts={purchasedHistory}></FilteredProducts>
     </div>
   );
 };
