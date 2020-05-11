@@ -14,16 +14,20 @@ import { connect } from "react-redux";
 import { setProductList, setFilteredProducts } from "../../redux/actions/app";
 import Categories from "../../components/categories";
 import Products from "../../components/products";
+import FilteredProducts from "../../components/filteredProducts";
 
-const Home = ({ setProductList, productList, setFilteredProducts }) => {
+const Home = ({
+  setProductList,
+  productList,
+  setFilteredProducts,
+  filteredProducts,
+}) => {
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const searchBarImg = useRef(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/home`, {
-      method: "GET",
-    })
+    fetch(`${process.env.REACT_APP_API}/home`)
       .then((res) => {
         if (res.status !== 200) {
           throw new Error({ message: "Error fetching data" });
@@ -56,7 +60,11 @@ const Home = ({ setProductList, productList, setFilteredProducts }) => {
 
   const renderMainContent = () => {
     if (searchKey) {
-      return <React.Fragment>searching ...</React.Fragment>;
+      return (
+        <FilteredProducts
+          filteredProducts={filteredProducts}
+        ></FilteredProducts>
+      );
     } else {
       return (
         <React.Fragment>
@@ -99,6 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (store) => ({
   productList: store.app.productList,
+  filteredProducts: store.app.filteredProducts,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

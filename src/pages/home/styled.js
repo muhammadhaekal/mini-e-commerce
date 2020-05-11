@@ -37,6 +37,7 @@ export const SearchInputWrapper = styled.div`
   width: 100%;
   border-radius: 10px;
   padding-left: 8px;
+  box-shadow: rgb(218, 218, 218) 0px 1px 8px 0px;
 `;
 
 export const SearchIconImg = styled.img`
@@ -49,6 +50,7 @@ export const SearchInput = styled.input`
   width: 100%;
   color: rgb(54, 69, 79);
   font-size: 14px;
+  margin-right: 8px;
   &:focus {
     outline: none;
   }
