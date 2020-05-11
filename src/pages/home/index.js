@@ -26,7 +26,6 @@ const Home = ({
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
-
   const searchBarImg = useRef(null);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const Home = ({
           window.alert(err.message);
         });
     }
-  }, [productList]);
+  }, [productList, setProductList]);
 
   useEffect(() => {
     if (searchKey !== "") {

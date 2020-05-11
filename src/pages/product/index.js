@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Wrapper,
   ProductImg,
@@ -12,6 +12,7 @@ import {
   FooterInfoWrapper,
   ProductPrice,
   BuyButton,
+  TextToShare,
 } from "./styled";
 import { connect } from "react-redux";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
@@ -30,6 +31,8 @@ const Product = ({
   toggleLoveStatus,
 }) => {
   const [product, setProduct] = useState(null);
+  const textToShare = useRef(null);
+  const shareUrlPrefix = `${window.location.origin}/product`;
 
   useEffect(() => {
     const selectedProduct = productList.find((product) => product.id === id);
@@ -46,26 +49,18 @@ const Product = ({
   };
 
   const handleShare = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText("text").then(
-        function () {
-          /* clipboard successfully set */
-          window.alert("true");
-        },
-        function () {
-          /* clipboard write failed */
-          window.alert("false");
-        }
-      );
-    } else {
-      window.alert("web share not supported");
-    }
+    textToShare.current.select();
+    document.execCommand("copy");
+    window.alert("Link Copied to Clipboard!");
   };
 
   return (
     <Wrapper>
       {product && (
         <ProductCard>
+          <TextToShare
+            ref={textToShare}
+          >{`${shareUrlPrefix}/${product.id}`}</TextToShare>
           <ProductImg background={product.imageUrl}>
             <BackIconImg
               src={LeftArrowImgSrc}

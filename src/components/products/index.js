@@ -18,8 +18,9 @@ const Products = ({ products }) => {
           <Link
             to={`/product/${product.id}`}
             style={{ textDecoration: "none" }}
+            key={i}
           >
-            <ProductCard key={i}>
+            <ProductCard>
               <ProductImg background={product.imageUrl}>
                 <LikeIconImg
                   src={product.loved === 1 ? LikeTrueImgSrc : LikeFalseImgSrc}

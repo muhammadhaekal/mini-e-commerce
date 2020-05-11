@@ -80,3 +80,8 @@ export const BuyButton = styled.div`
   font-size: 16px;
   border-radius: 4px;
 `;
+
+export const TextToShare = styled.textarea`
+  margin-left: -100vw;
+  position: fixed;
+`;
