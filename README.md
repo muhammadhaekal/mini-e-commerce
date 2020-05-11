@@ -1,6 +1,10 @@
 # Mini E-Commerce Project
 
-Mini E-Commerce Web App
+Mini E-Commerce Web App, you can access live demo of this app by using this url :
+
+```
+https://sleepy-sinoussi-ed8c15.netlify.app/
+```
 
 ### Tech Stack
 
