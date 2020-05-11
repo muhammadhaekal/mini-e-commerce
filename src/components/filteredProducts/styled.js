@@ -34,13 +34,14 @@ export const ProductInfoWrapper = styled.div`
 export const ProductTitle = styled.div`
   color: rgb(54, 69, 79);
   font-size: 14px;
-  margin-top: 10px;
-  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export const ProductPrice = styled.div`
   align-self: stretch;
   color: rgb(217, 0, 27);
   font-size: 14px;
+  margin-top: 13px;
   font-weight: 700;
 `;

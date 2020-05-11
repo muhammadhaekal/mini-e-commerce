@@ -17,3 +17,8 @@ export const setFilteredProducts = (filteredProducts) => ({
   type: "SET_FILTERED_PRODUCTS",
   filteredProducts,
 });
+
+export const addPurchasedHistory = (product) => ({
+  type: "ADD_PURCHASED_HISTORY",
+  product,
+});
