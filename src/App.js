@@ -5,7 +5,6 @@ import LoginPage from "./pages/login";
 import HomePage from "./pages/home";
 import ProductPage from "./pages/product";
 import HistoryPage from "./pages/history";
-import SearchPage from "./pages/search";
 
 import { Route, withRouter } from "react-router-dom";
 
@@ -24,7 +23,6 @@ function App() {
       <Route path="/home" component={HomePage} />
       <Route path="/product/:id" component={ProductPage} />
       <Route path="/history" component={HistoryPage} />
-      <Route path="/search" component={SearchPage} />
     </React.Fragment>
   );
 }

@@ -51,6 +51,7 @@ export const SearchInput = styled.input`
   color: rgb(54, 69, 79);
   font-size: 14px;
   margin-right: 8px;
+  border: none;
   &:focus {
     outline: none;
   }

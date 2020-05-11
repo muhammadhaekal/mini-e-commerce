@@ -15,15 +15,19 @@ import {
 } from "./styled";
 import { connect } from "react-redux";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
-import { addPurchasedHistory } from "../../redux/actions/app";
+import LovedTrueImgSrc from "../../img/loved-true.png";
+import LovedFalseImgSrc from "../../img/loved-false.png";
+import ShareIconImgSrc from "../../img/share-icon.png";
+import { addPurchasedHistory, toggleLoveStatus } from "../../redux/actions/app";
 
 const Product = ({
   productList,
   match: {
     params: { id },
   },
-  history: { push, goBack },
+  history: { goBack },
   addPurchasedHistory,
+  toggleLoveStatus,
 }) => {
   const [product, setProduct] = useState(null);
 
@@ -34,11 +38,28 @@ const Product = ({
 
   const handleBuyProduct = () => {
     addPurchasedHistory(product);
-    push("/history");
+    window.alert("Purchase Successful");
   };
 
   const handleGoBack = () => {
     goBack();
+  };
+
+  const handleShare = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText("text").then(
+        function () {
+          /* clipboard successfully set */
+          window.alert("true");
+        },
+        function () {
+          /* clipboard write failed */
+          window.alert("false");
+        }
+      );
+    } else {
+      window.alert("web share not supported");
+    }
   };
 
   return (
@@ -50,11 +71,17 @@ const Product = ({
               src={LeftArrowImgSrc}
               onClick={handleGoBack}
             ></BackIconImg>
-            <ShareIconImg src={LeftArrowImgSrc}></ShareIconImg>
+            <ShareIconImg
+              src={ShareIconImgSrc}
+              onClick={handleShare}
+            ></ShareIconImg>
           </ProductImg>
           <HeaderInfoWrapper>
             <ProductName>{product.title}</ProductName>
-            <LikeIconImg src={LeftArrowImgSrc}></LikeIconImg>
+            <LikeIconImg
+              src={product.loved === 1 ? LovedTrueImgSrc : LovedFalseImgSrc}
+              onClick={() => toggleLoveStatus(product.id)}
+            ></LikeIconImg>
           </HeaderInfoWrapper>
           <DescriptionWrapper>{product.description}</DescriptionWrapper>
           <FooterInfoWrapper>
@@ -69,6 +96,7 @@ const Product = ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPurchasedHistory: (product) => dispatch(addPurchasedHistory(product)),
+  toggleLoveStatus: (id) => dispatch(toggleLoveStatus(id)),
 });
 
 const mapStateToProps = (store) => ({

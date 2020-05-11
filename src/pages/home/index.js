@@ -30,33 +30,36 @@ const Home = ({
   const searchBarImg = useRef(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/home`)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error({ message: "Error fetching data" });
-        } else {
-          return res.json();
-        }
-      })
-      .then((res) => {
-        if (res && res[0] && res[0].data) {
-          setCategories(res[0].data.category);
-          setProductList(res[0].data.productPromo);
-        }
-      })
-      .catch((err) => {
-        window.alert(err.message);
-      });
-  }, [setProductList]);
+    if (productList.length === 0) {
+      fetch(`${process.env.REACT_APP_API}/home`)
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error({ message: "Error fetching data" });
+          } else {
+            return res.json();
+          }
+        })
+        .then((res) => {
+          if (res && res[0] && res[0].data) {
+            setCategories(res[0].data.category);
+            setProductList(res[0].data.productPromo);
+          }
+        })
+        .catch((err) => {
+          window.alert(err.message);
+        });
+    }
+  }, [productList]);
 
   useEffect(() => {
-    if (searchKey) {
+    if (searchKey !== "") {
       const newFilteredProduct = productList.filter((product) =>
         product.title.toLowerCase().includes(searchKey.toLowerCase())
       );
       setFilteredProducts(newFilteredProduct);
-      setIsSearchActive(true);
       searchBarImg.current.src = LeftArrowImgSrc;
+    } else {
+      setFilteredProducts([]);
     }
   }, [searchKey, productList, setFilteredProducts]);
 
@@ -112,7 +115,7 @@ const Home = ({
         <span>Cart</span>
         <Link
           to={`/history`}
-          style={{ textDecoration: "none", color: "#ffffffff" }}
+          style={{ textDecoration: "none", color: "#ffffff" }}
         >
           <span>Profile</span>
         </Link>

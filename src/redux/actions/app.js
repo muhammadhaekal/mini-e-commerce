@@ -22,3 +22,8 @@ export const addPurchasedHistory = (product) => ({
   type: "ADD_PURCHASED_HISTORY",
   product,
 });
+
+export const toggleLoveStatus = (id) => ({
+  type: "TOGGLE_LOVE_STATUS",
+  id,
+});

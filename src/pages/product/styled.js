@@ -17,16 +17,16 @@ export const ProductImg = styled.div`
 `;
 
 export const ShareIconImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   position: absolute;
   right: 15px;
   top: 15px;
 `;
 
 export const BackIconImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   position: absolute;
   left: 15px;
   top: 15px;
@@ -45,8 +45,8 @@ export const ProductName = styled.div`
 `;
 
 export const LikeIconImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 38px;
+  height: 38px;
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -61,6 +61,7 @@ export const DescriptionWrapper = styled.div`
 export const FooterInfoWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 8px;
 `;
 
 export const ProductPrice = styled.div`
