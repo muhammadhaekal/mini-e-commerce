@@ -13,6 +13,11 @@ export const setProductList = (productList) => ({
   productList,
 });
 
+export const setCategories = (categories) => ({
+  type: "SET_CATEGORIES",
+  categories,
+});
+
 export const setFilteredProducts = (filteredProducts) => ({
   type: "SET_FILTERED_PRODUCTS",
   filteredProducts,

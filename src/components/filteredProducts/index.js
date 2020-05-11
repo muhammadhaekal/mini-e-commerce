@@ -14,10 +14,11 @@ const FilteredProducts = ({ filteredProducts }) => {
     <React.Fragment>
       {filteredProducts.length > 0 && (
         <Wrapper>
-          {filteredProducts.map((filteredProduct) => (
+          {filteredProducts.map((filteredProduct, i) => (
             <Link
               to={`/product/${filteredProduct.id}`}
               style={{ textDecoration: "none" }}
+              key={i}
             >
               <ProductCard>
                 <ProductImg background={filteredProduct.imageUrl}></ProductImg>

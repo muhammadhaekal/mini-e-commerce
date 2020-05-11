@@ -4,6 +4,7 @@ const appDefaultState = {
   productList: [],
   filteredProducts: [],
   purchasedHistory: [],
+  categories: [],
 };
 
 const appReducer = (state = appDefaultState, action) => {
@@ -14,6 +15,8 @@ const appReducer = (state = appDefaultState, action) => {
       return { ...state, isAuthenticated: action.isAuthenticated };
     case "SET_PRODUCT_LIST":
       return { ...state, productList: action.productList };
+    case "SET_CATEGORIES":
+      return { ...state, categories: action.categories };
     case "SET_FILTERED_PRODUCTS":
       return { ...state, filteredProducts: action.filteredProducts };
     case "TOGGLE_LOVE_STATUS":

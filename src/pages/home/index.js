@@ -11,7 +11,11 @@ import LikeTrueImgSrc from "../../img/loved-true.png";
 import SearchIconImgSrc from "../../img/search-icon.png";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
 import { connect } from "react-redux";
-import { setProductList, setFilteredProducts } from "../../redux/actions/app";
+import {
+  setProductList,
+  setFilteredProducts,
+  setCategories,
+} from "../../redux/actions/app";
 import Categories from "../../components/categories";
 import Products from "../../components/products";
 import FilteredProducts from "../../components/filteredProducts";
@@ -22,8 +26,9 @@ const Home = ({
   productList,
   setFilteredProducts,
   filteredProducts,
+  setCategories,
+  categories,
 }) => {
-  const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
   const searchBarImg = useRef(null);
@@ -48,7 +53,7 @@ const Home = ({
           window.alert(err.message);
         });
     }
-  }, [productList, setProductList]);
+  }, [productList, setProductList, setCategories]);
 
   useEffect(() => {
     if (searchKey !== "") {
@@ -108,17 +113,20 @@ const Home = ({
         </SearchInputWrapper>
       </SearchBarWrapper>
       {renderMainContent()}
-      <NavBarWrapper>
-        <span>Home</span>
-        <span>Feed</span>
-        <span>Cart</span>
-        <Link
-          to={`/history`}
-          style={{ textDecoration: "none", color: "#ffffff" }}
-        >
-          <span>Profile</span>
-        </Link>
-      </NavBarWrapper>
+      {!isSearchActive && (
+        <NavBarWrapper>
+          {" "}
+          <span>Home</span>
+          <span>Feed</span>
+          <span>Cart</span>
+          <Link
+            to={`/history`}
+            style={{ textDecoration: "none", color: "#ffffff" }}
+          >
+            <span>Profile</span>{" "}
+          </Link>
+        </NavBarWrapper>
+      )}
     </React.Fragment>
   );
 };
@@ -127,11 +135,13 @@ const mapDispatchToProps = (dispatch) => ({
   setProductList: (products) => dispatch(setProductList(products)),
   setFilteredProducts: (filteredProducts) =>
     dispatch(setFilteredProducts(filteredProducts)),
+  setCategories: (categories) => dispatch(setCategories(categories)),
 });
 
 const mapStateToProps = (store) => ({
   productList: store.app.productList,
   filteredProducts: store.app.filteredProducts,
+  categories: store.app.categories,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

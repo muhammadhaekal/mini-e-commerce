@@ -43,7 +43,9 @@ const Login = () => {
             <input name="remember" id="remember" type="checkbox"></input>
             <RememberText>Remember me</RememberText>
           </RememberOptionWrapper>
-          <TealButton>Sign In</TealButton>
+          <Link to={`/home`} style={{ textDecoration: "none" }}>
+            <TealButton>Sign In</TealButton>
+          </Link>
         </SignInWrapper>
         <Link to={`/home`} style={{ textDecoration: "none" }}>
           <GoogleAuthBtn>
