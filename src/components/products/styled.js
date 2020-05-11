@@ -20,6 +20,7 @@ export const ProductTitle = styled.div`
   color: rgb(54, 69, 79);
   font-size: 12px;
   padding: 8px;
+  text-decoration: none;
 `;
 
 export const ProductImg = styled.div`

@@ -16,12 +16,13 @@ import {
 import { connect } from "react-redux";
 import LeftArrowImgSrc from "../../img/left-arrow.png";
 import { addPurchasedHistory } from "../../redux/actions/app";
+
 const Product = ({
   productList,
   match: {
     params: { id },
   },
-  history: { push },
+  history: { push, goBack },
   addPurchasedHistory,
 }) => {
   const [product, setProduct] = useState(null);
@@ -31,9 +32,13 @@ const Product = ({
     setProduct(selectedProduct);
   }, [id, productList]);
 
-  const handleOnClick = () => {
+  const handleBuyProduct = () => {
     addPurchasedHistory(product);
     push("/history");
+  };
+
+  const handleGoBack = () => {
+    goBack();
   };
 
   return (
@@ -41,8 +46,11 @@ const Product = ({
       {product && (
         <ProductCard>
           <ProductImg background={product.imageUrl}>
+            <BackIconImg
+              src={LeftArrowImgSrc}
+              onClick={handleGoBack}
+            ></BackIconImg>
             <ShareIconImg src={LeftArrowImgSrc}></ShareIconImg>
-            <BackIconImg src={LeftArrowImgSrc}></BackIconImg>
           </ProductImg>
           <HeaderInfoWrapper>
             <ProductName>{product.title}</ProductName>
@@ -51,7 +59,7 @@ const Product = ({
           <DescriptionWrapper>{product.description}</DescriptionWrapper>
           <FooterInfoWrapper>
             <ProductPrice>{product.price}</ProductPrice>
-            <BuyButton onClick={handleOnClick}>Buy</BuyButton>
+            <BuyButton onClick={handleBuyProduct}>Buy</BuyButton>
           </FooterInfoWrapper>
         </ProductCard>
       )}

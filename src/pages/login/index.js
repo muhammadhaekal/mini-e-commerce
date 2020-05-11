@@ -15,6 +15,7 @@ import {
 } from "./styled";
 import GoogleImgSrc from "../../img/google.png";
 import FacebookImgSrc from "../../img/facebook.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -44,16 +45,20 @@ const Login = () => {
           </RememberOptionWrapper>
           <TealButton>Sign In</TealButton>
         </SignInWrapper>
-        <GoogleAuthBtn>
-          <SocMedImg src={GoogleImgSrc} alt="google-icon"></SocMedImg>
-          <span>Continue with Google</span>
-          <span></span>
-        </GoogleAuthBtn>
-        <SocMedAuthBtn>
-          <SocMedImg src={FacebookImgSrc} alt="facebook-icon"></SocMedImg>
-          <span>Continue with Facebook</span>
-          <span></span>
-        </SocMedAuthBtn>
+        <Link to={`/home`} style={{ textDecoration: "none" }}>
+          <GoogleAuthBtn>
+            <SocMedImg src={GoogleImgSrc} alt="google-icon"></SocMedImg>
+            <span>Continue with Google</span>
+            <span></span>
+          </GoogleAuthBtn>
+        </Link>
+        <Link to={`/home`} style={{ textDecoration: "none" }}>
+          <SocMedAuthBtn>
+            <SocMedImg src={FacebookImgSrc} alt="facebook-icon"></SocMedImg>
+            <span>Continue with Facebook</span>
+            <span></span>
+          </SocMedAuthBtn>
+        </Link>
       </FormWrapper>
     </Wrapper>
   );

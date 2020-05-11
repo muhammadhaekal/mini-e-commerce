@@ -9,7 +9,7 @@ import {
 } from "./styled";
 import { Link } from "react-router-dom";
 
-const FilteredProducts = ({ filteredProducts }) => {
+const HistoryProducts = ({ filteredProducts }) => {
   return (
     <Wrapper>
       {filteredProducts &&
@@ -31,4 +31,4 @@ const FilteredProducts = ({ filteredProducts }) => {
   );
 };
 
-export default FilteredProducts;
+export default HistoryProducts;

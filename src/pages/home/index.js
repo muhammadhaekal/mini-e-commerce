@@ -15,6 +15,7 @@ import { setProductList, setFilteredProducts } from "../../redux/actions/app";
 import Categories from "../../components/categories";
 import Products from "../../components/products";
 import FilteredProducts from "../../components/filteredProducts";
+import { Link } from "react-router-dom";
 
 const Home = ({
   setProductList,
@@ -24,6 +25,8 @@ const Home = ({
 }) => {
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
   const searchBarImg = useRef(null);
 
   useEffect(() => {
@@ -52,14 +55,13 @@ const Home = ({
         product.title.toLowerCase().includes(searchKey.toLowerCase())
       );
       setFilteredProducts(newFilteredProduct);
+      setIsSearchActive(true);
       searchBarImg.current.src = LeftArrowImgSrc;
-    } else {
-      searchBarImg.current.src = LikeTrueImgSrc;
     }
   }, [searchKey, productList, setFilteredProducts]);
 
   const renderMainContent = () => {
-    if (searchKey) {
+    if (isSearchActive) {
       return (
         <FilteredProducts
           filteredProducts={filteredProducts}
@@ -75,16 +77,28 @@ const Home = ({
     }
   };
 
+  const setSearchActive = () => {
+    setIsSearchActive(true);
+  };
+  const setSearchInactive = () => {
+    setIsSearchActive(false);
+  };
+
   return (
     <React.Fragment>
       <SearchBarWrapper>
-        <SarchBarIcon ref={searchBarImg} src={LikeTrueImgSrc}></SarchBarIcon>
+        <SarchBarIcon
+          ref={searchBarImg}
+          src={isSearchActive ? LeftArrowImgSrc : LikeTrueImgSrc}
+          onClick={setSearchInactive}
+        ></SarchBarIcon>
         <SearchInputWrapper>
           <SearchIconImg src={SearchIconImgSrc}></SearchIconImg>
           <SearchInput
             type="text"
             name="search-key"
             onChange={(e) => setSearchKey(e.target.value)}
+            onFocus={setSearchActive}
           ></SearchInput>
         </SearchInputWrapper>
       </SearchBarWrapper>
@@ -93,7 +107,12 @@ const Home = ({
         <span>Home</span>
         <span>Feed</span>
         <span>Cart</span>
-        <span>Profile</span>
+        <Link
+          to={`/history`}
+          style={{ textDecoration: "none", color: "#ffffffff" }}
+        >
+          <span>Profile</span>
+        </Link>
       </NavBarWrapper>
     </React.Fragment>
   );
